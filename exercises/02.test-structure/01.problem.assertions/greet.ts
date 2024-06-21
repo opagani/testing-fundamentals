@@ -37,3 +37,16 @@ if (message !== 'Congrats, Sarah!') {
 // values, and throw an error if they don't mtach.
 // 💰 You can throw an error like this one:
 // new Error(`Expected ${actual} to equal to ${expected}`)
+
+expect(greet('John')).toBe('Hello, John!')
+expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+
+function expect(actual: unknown) {
+	return {
+		toBe(expected: unknown) {
+			if (actual !== expected) {
+				throw new Error(`Expected ${actual} to equal to ${expected}`)
+			}
+		},
+	}
+}

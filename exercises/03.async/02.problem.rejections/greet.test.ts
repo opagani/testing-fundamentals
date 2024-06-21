@@ -13,12 +13,12 @@ afterAll(() => {
 })
 
 test('returns a greeting message for the given name', () => {
-	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+	expect(greet('John')).toBe('Hello, John! Happy, Sunday.')
 })
 
 test('returns a greeting message for the given user response', async () => {
 	const response = Response.json({ firstName: 'Patrick' })
-	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Sunday.')
 })
 
 test('throws on greeting user with undefined user response', async () => {
@@ -26,6 +26,9 @@ test('throws on greeting user with undefined user response', async () => {
 	// to make sure that the "greetByResponse()" function throws if
 	// it's given undefined as the argument.
 	// 💰 await expect(greetByResponse(undefined)).rejects.toThrow(...)
+	await expect(greetByResponse(undefined)).rejects.toThrow(
+		new Error('Failed to greet the user: no user response provided'),
+	)
 })
 
 test('returns a congratulation message for the given name', () => {

@@ -8,9 +8,11 @@ declare global {
 
 	// 🐨 Declare a new function called "beforeAll".
 	// It accepts a single argument: the "callback" function.
+	var beforeAll: (callback: () => void) => void
 
 	// 🐨 Similarly, declare a new function called "afterAll".
 	// It also accepts a single "callback" argument.
+	var afterAll: (callback: () => void) => void
 
 	// 🐨 Finally, set the newly created "beforeAll" and "afterAll"
 	// functions on the "globalThis" object. This will make them available
@@ -43,6 +45,16 @@ globalThis.test = function (title, callback) {
 
 // 🐨 In the "beforeAll" function, call the "callback" function.
 
+globalThis.beforeAll = function (callback) {
+	callback()
+}
+
+globalThis.afterAll = function (callback) {
+	process.on('beforeExit', () => {
+		callback()
+	})
+}
+
 // 🐨 Next, add the "afterAll" function to the "globalThis" object.
 // 💰 globalThis.afterAll = function (callback) { ... }
 
@@ -50,3 +62,9 @@ globalThis.test = function (title, callback) {
 // only when the tests's are done.
 // 💰 The tests are done when the Node.js process exits.
 // process.on('beforeExit', callback)
+
+globalThis.afterAll = function (callback) {
+	process.on('beforeExit', () => {
+		callback()
+	})
+}

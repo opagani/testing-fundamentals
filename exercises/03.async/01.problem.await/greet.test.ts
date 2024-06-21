@@ -13,12 +13,12 @@ afterAll(() => {
 })
 
 test('returns a greeting message for the given name', () => {
-	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+	expect(greet('John')).toBe('Hello, John! Happy, Sunday.')
 })
 
 test('returns a greeting message for the given user response', async () => {
-	const response = Response.json({ name: 'Patrick' })
-	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+	const response = Response.json({ firstName: 'Patrick' })
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Sunday.')
 })
 
 test('returns a congratulation message for the given name', () => {

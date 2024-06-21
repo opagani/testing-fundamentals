@@ -10,6 +10,7 @@ declare global {
 	var test: (title: string, callback: () => void) => void
 	var beforeAll: (callback: () => void) => void
 	var afterAll: (callback: () => void) => void
+	var rejects: { toThrow(expected: Error): Promise<void> }
 }
 
 globalThis.expect = function (actual: unknown) {

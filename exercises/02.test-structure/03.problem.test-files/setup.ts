@@ -5,11 +5,9 @@ interface Assertions {
 declare global {
 	var expect: (actual: unknown) => Assertions
 	var test: (title: string, callback: () => void) => void
-	var beforeAll: (callback: () => void) => void
-	var afterAll: (callback: () => void) => void
 }
 
-globalThis.expect = function (actual: unknown) {
+globalThis.expect = function (actual) {
 	return {
 		toBe(expected: unknown) {
 			if (actual !== expected) {
@@ -19,22 +17,12 @@ globalThis.expect = function (actual: unknown) {
 	}
 }
 
-globalThis.test = async function (title, callback) {
+globalThis.test = function (title, callback) {
 	try {
-		await callback()
+		callback()
 		console.log(`✓ ${title}`)
 	} catch (error) {
 		console.error(`✗ ${title}`)
 		console.error(error, '\n')
 	}
-}
-
-globalThis.beforeAll = function (callback) {
-	callback()
-}
-
-globalThis.afterAll = function (callback) {
-	process.on('beforeExit', () => {
-		callback()
-	})
 }

@@ -44,3 +44,21 @@ function expect(actual: unknown) {
 // print another message to the console. In this one, include a cross
 // icon, the test's name, and the thrown error.
 // 💰 Use this template for error messages: `✗ ${title}`
+
+test('returns a greeting message for the given name', () => {
+	expect(greet('John')).toBe('Hello, John!')
+})
+
+test('returns a congratulation message for the given name', () => {
+	expect(congratulate('Sarah')).toBe('Congrats, Sarah!')
+})
+
+function test(title: string, callback: () => void) {
+	try {
+		callback()
+		console.log(`✓ ${title}`)
+	} catch (error) {
+		console.error(`✗ ${title}`)
+		console.error(error, '\n')
+	}
+}

@@ -23,8 +23,24 @@ import { greet, congratulate } from './greet.js'
 // class to its original implementation.
 // 💰 globalThis.Date = OriginalDate
 
+// test('returns a greeting message for the given name', () => {
+// 	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+// })
+
+const OriginalDate = globalThis.Date
+
+beforeAll(() => {
+	globalThis.Date = new Proxy(globalThis.Date, {
+		construct: () => new OriginalDate('2024-01-01'),
+	})
+})
+
+afterAll(() => {
+	globalThis.Date = OriginalDate
+})
+
 test('returns a greeting message for the given name', () => {
-	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+	expect(greet('John')).toBe('Hello, John! Happy, Sunday.')
 })
 
 test('returns a congratulation message for the given name', () => {

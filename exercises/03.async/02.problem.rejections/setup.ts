@@ -6,6 +6,9 @@ interface Assertions {
 	// The "toThrow" assertion accepts a single argument: the
 	// expected Error instance.
 	// 💰 rejects: { toThrow(expected: Error): Promise<void> }
+	rejects: {
+		toThrow(expected: Error): Promise<void>
+	}
 }
 
 declare global {
@@ -13,6 +16,7 @@ declare global {
 	var test: (title: string, callback: () => void) => void
 	var beforeAll: (callback: () => void) => void
 	var afterAll: (callback: () => void) => void
+	var rejects: { toThrow(expected: Error): Promise<void> }
 }
 
 globalThis.expect = function (actual: unknown) {
@@ -34,6 +38,26 @@ globalThis.expect = function (actual: unknown) {
 
 		// 🐨 Bonus points if you make "toThrow()" function throw an error
 		// if the "actual" Promise *resolves*.
+
+		rejects: {
+			toThrow(expected) {
+				if (!(actual instanceof Promise)) {
+					throw new Error(`Expected ${actual} to be a promise`)
+				}
+
+				return actual
+					.then(() => {
+						throw new Error(`Expected ${actual} to reject but it didn't`)
+					})
+					.catch(error => {
+						if (error.message !== expected.message) {
+							throw new Error(
+								`Expected ${error.message} to equal to ${expected.message}`,
+							)
+						}
+					})
+			},
+		},
 	}
 }
 

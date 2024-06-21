@@ -5,9 +5,18 @@ function greet(name: string) {
 // 🐨 Create a variable named "message" and assign it the result
 // of the "greet()" function call.
 // 💰 Maybe pass "John" as the name.
+const message = greet('John')
+console.log(message)
 
 // 🐨 Add an "if" statement to check whether the "message" equals
 // to what you expect. If it's not, throw an error.
 // 💰 Verify the message equals to "Hello, John!"
 // 💰 You can throw an error like this one:
 // new Error(`Expected message to equal to "Hello, John!" but got "${message}"`)
+if (message === 'Hello, John!') {
+	console.log('All good!')
+} else {
+	throw new Error(
+		`Expected message to equal to "Hello, John!" but got "${message}"`,
+	)
+}

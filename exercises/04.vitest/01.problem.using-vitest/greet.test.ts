@@ -18,12 +18,12 @@ afterAll(() => {
 })
 
 test('returns a greeting message for the given name', () => {
-	expect(greet('John')).toBe('Hello, John! Happy, Monday.')
+	expect(greet('John')).toBe('Hello, John! Happy, Sunday.')
 })
 
 test('returns a greeting message for the given user response', async () => {
 	const response = Response.json({ firstName: 'Patrick' })
-	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Monday.')
+	expect(await greetByResponse(response)).toBe('Hello, Patrick! Happy, Sunday.')
 })
 
 test('throws on greeting user with undefined user response', async () => {
@@ -60,6 +60,6 @@ test('displays a notification when a new user joins', async () => {
 	manager.showNotification(Response.json({ firstName: 'Kate' }))
 
 	await waitFor(() => {
-		expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Monday.')
+		expect(manager.notifications[0]).toBe('Hello, Kate! Happy, Sunday.')
 	})
 })

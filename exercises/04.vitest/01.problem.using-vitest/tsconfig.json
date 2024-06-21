@@ -6,7 +6,8 @@
     "forceConsistentCasingInFileNames": true,
 		"allowJs": true,
     "skipLibCheck": true,
-		"noEmit": true
+		"noEmit": true,
+    "types": ["vitest/globals"]
   },
   "include": ["**/*"]
 }
